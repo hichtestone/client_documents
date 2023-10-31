@@ -1,0 +1,24 @@
+
+<div class="col-md-12">
+    <h4 class="card-title">Licence</h4>
+    {{ form_start(form, {'action': path('document_edit_modal',{'id': document.id})}) }}
+
+    <div class="form-group form-file-upload form-file-simple">
+
+
+        <input type="text" class="form-control inputFileVisible" placeholder="choisir licence" value="{{ document.licenseName }}">
+        {{ form_widget(form.licenceFile, {'attr' : { 'class' : 'inputFileHidden'}} ) }}
+
+    </div>
+
+    <h4 class="card-title">Configuration</h4>
+
+    <div class="form-group form-file-upload form-file-simple">
+        <input type="text" class="form-control inputFileVisible" placeholder="{{ document.configurationName }}">
+        {{ form_widget(form.configurationFile, {'attr' : { 'class' : 'inputFileHidden'}} ) }}
+
+    </div>
+    <button type="submit" class="btn btn-fill btn-outline-success">{{ button_label|default('enregistrer') }}</button>
+    {{ form_end(form) }}
+
+</div>

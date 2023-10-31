@@ -1,0 +1,575 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Liste Clients{% endblock %}
+{% block nav %}
+    <div class="navbar-wrapper">
+        <div class="navbar-toggle">
+            <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
+        <a class="navbar-brand">Profil Client</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">
+                        Profil client
+                        <span class="float-right">
+                        <a href="{{ path('client_edit',{'id': client.id}) }}">
+                            <i class="fa fa-pen"></i>
+                        </a>
+                    </span>
+                    </h5>
+
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>Nom</label>
+                                    <input type="text" class="form-control" placeholder="Nom" value="{{ client.firstName }}" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pl-1">
+                                <div class="form-group">
+                                    <label>Prénom</label>
+                                    <input type="text" class="form-control" placeholder="prenom" value="{{ client.lastName }}" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Addresse</label>
+                                    <input type="text" class="form-control" placeholder="Adresse" value="{{ client.Adresse }}" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Numéro du téléphone</label>
+                                    <input type="text" class="form-control" placeholder="Home Address" value="{{ client.phone }}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 pr-1">
+                                <div class="form-group">
+                                    <label>Pays</label>
+                                    <input type="text" class="form-control" placeholder="City" value="{{ client.city }}" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4 px-1">
+                                <div class="form-group">
+                                    <label>Ville</label>
+                                    <input type="text" class="form-control" placeholder="Country" value="{{ client.country }}" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-1">
+                                <div class="form-group">
+                                    <label>code postal</label>
+                                    <input type="number" class="form-control" placeholder="ZIP Code" value="{{ client.zipcode }}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                                            </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <a href="#">
+                            <img class="avatar border-gray" src="{{ asset('assets/img/man.png') }}" alt="...">
+                            <h5 class="title">{{client.firstName }} {{client.lastName }}</h5>
+                        </a>
+                        <p class="description">
+                            {{ client.phone }}
+                        </p>
+                    </div>
+                    <p class="description text-center">
+                        {{ client.Adresse}} <br>
+                        {{ client.city }} {{ client.country}} {{ client.ziocode }}<br>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Informations Supplémentaires</h4>
+                </div>
+                <div class="card-body">
+                    <div id="accordion" role="tablist">
+                        <div class="card-collapse">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <h5 class="mb-0">
+                                    <div>
+                                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+                                            <i class="material-icons">Documents</i>
+
+                                        </a>
+                                        <a href="{{ path('document_new',{'id': client.id}) }}" class="float-right" data-toggle="modal"
+                                           data-target="#add" class="add"><i class="fa fa-plus-circle"></i></a>
+                                    </div>
+                                    <hr>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                                <div class="card-body">
+                                    <div class="col-md-12">
+                                        <div class="card card-plain">
+                                            <div class="card-header">
+                                                <h4 class="card-title">
+                                                    Documents
+
+                                                </h4>
+                                                <p class="category"> liste des document de {{ client.firstName }} {{ client.lastName }}</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class=" text-primary">
+                                                        <tr><th>
+                                                                licence
+                                                            </th>
+                                                            <th>
+                                                                configurations
+                                                            </th>
+                                                            <th>
+                                                                Actions
+                                                            </th>
+
+                                                        </tr></thead>
+                                                        <tbody>
+                                                        {% for doc in client.documents %}
+                                                        <tr>
+                                                            <td>
+                                                                <a download class="btn btn-info btn-sm" href="{{asset('uploads/documents/licences/' ~ doc.licenseName) }}">
+                                                                    <i class="fas fa-file-download"></i>   {{doc.licenseName }} </a>
+
+                                                            </td>
+                                                            <td>
+                                                                <a download class="btn btn-info btn-sm" href="{{asset('uploads/documents/conf/' ~ doc.configurationName) }}">
+                                                                    <i class="fas fa-file-download"></i>   {{doc.configurationName }} </a>
+
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <span>
+                                                                    <a href="{{ path("document_show", {'id': doc.id}) }}" class="equipementdelete"
+                                                                        data-toggle="modal" data-target="#showequipement"><i class="fa fa-eye"></i></a>
+                                                                </span>
+                                                                <span>
+                                                                    <a  href="{{ path("document_edit_modal", {'id': doc.id}) }}" class="equipementdelete"
+                                                                        data-toggle="modal" data-target="#editequipement"><i class="fa fa-edit"></i></a>
+                                                                </span>
+
+                                                                {% if(doc.detetedAt) %}
+                                                                    <a href="{{ path('documentresore',{'id': doc.id}) }}">
+                                                                        <i class="fa fa-box-open"></i>
+                                                                    </a>
+                                                                {% else %}
+                                                                    <a href="{{ path('documentarchive',{'id': doc.id}) }}">
+                                                                        <i class="fa fa-archive"></i>
+                                                                    </a>
+                                                                {% endif %}
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-collapse">
+                            <div class="card-header" role="tab" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <div>
+                                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <i class="material-icons">Infrastructures</i>
+
+                                        </a>
+                                        <a href="{{ path('addinfrastructureimport',{'id': client.id}) }}" class="float-right" data-toggle="modal"
+                                           data-target="#importInfra" class="add float-right"><i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                                        </a>
+
+
+                                        <a href="{{ path('infrastructure_new',{'id': client.id}) }}" class="float-right" data-toggle="modal"
+                                           data-target="#add" class="add"><i class="fa fa-plus-circle"></i>
+                                        </a>
+                                    </div>
+                                    <hr>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion" style="">
+                                <div class="card-body">
+                                    <div class="col-md-12">
+                                        <div class="card card-plain">
+                                            <div class="card-header">
+                                                <h4 class="card-title"> Infrastructures</h4>
+                                                <p class="category"> liste des infrastructures de {{ client.firstName }} {{ client.lastName }}</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class=" text-primary">
+                                                        <tr><th>
+                                                                site
+                                                            </th>
+                                                            <th>
+                                                                nom du Serveur
+                                                            </th>
+                                                            <th>
+                                                                Système d'exploitation
+                                                            </th>
+                                                            <th>
+                                                                CPU_PROC
+                                                            </th>
+                                                            <th>
+                                                                taille du RAM
+                                                            </th>
+                                                            <th>Disque total</th>
+                                                            <th>
+                                                                Disque utilisé
+                                                            </th>
+                                                            <th>IP</th>
+                                                            <th>HyperV/VM</th>
+
+                                                            <th>nominal</th>
+                                                            <th>
+                                                                Actions
+                                                            </th>
+
+                                                        </tr></thead>
+                                                        <tbody>
+                                                        {% for infrestructure in client.infrastructures %}
+                                                            <tr>
+                                                                <td>
+                                                                    {{infrestructure.site }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ infrestructure.nomSVR }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ infrestructure.OS }}
+                                                                </td>
+                                                                <td>
+
+                                                                </td>
+                                                                <td>
+                                                                    {{ infrestructure.RAM }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ infrestructure.totalDisque }}
+                                                                </td>
+                                                                <td>{{ infrestructure.DisqueUsed }}</td>
+                                                                <td>{{ infrestructure.IP }}</td>
+                                                                <td>{{ infrestructure.HYPERV }}</td>
+
+                                                                <td>{{ infrestructure.nominal }}</td>
+                                                                <td class="text-right">
+
+                                                                    <a href="{{ path("show_infrastructure",{'id': infrestructure.id}) }}"
+                                                                   data-toggle="modal" data-target="#showequipement" class="equipementshow">
+                                                                    <i class="fa fa-eye"></i>
+                                                                    </a>
+
+                                                                    <a >
+                                                                    <a href="{{ path("edit_infrastructure",{'id': infrestructure.id}) }}"
+                                                                       class="equipementdelete" data-toggle="modal" data-target="#editequipement"><i class="fa fa-edit"></i></a>
+                                                                    </a>
+                                                                    {% if(infrestructure.deletedAt) %}
+                                                                        <a href="{{ path('infrastructureresore',{'id': infrestructure.id}) }}">
+                                                                            <i class="fa fa-box-open"></i>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        <a href="{{ path('infrastructurearchive',{'id': infrestructure.id}) }}">
+                                                                            <i class="fa fa-archive"></i>
+                                                                        </a>
+                                                                    {% endif %}
+                                                                </td>
+
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-collapse">
+                            <div class="card-header" role="tab" id="headingThree">
+                                <h5 class="mb-0">
+                                    <div>
+                                    <a class="" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+                                        <i class="material-icons">mot du passe</i>
+                                    </a>
+                                        <a href="{{ path('addequipementimport',{'id': client.id}) }}" class="float-right" data-toggle="modal"
+                                           data-target="#importInfra" class="add float-right"><i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                                        </a>
+                                    <a href="{{ path('equipement_new', {'id': client.id}) }}" class="float-right" data-toggle="modal"
+                                       data-target="#add" class="add"><i class="fa fa-plus-circle"></i>
+                                    </a>
+                                    </div>
+                                    <hr>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion" style="">
+                                <div class="card-body">
+                                    <div class="col-md-12">
+                                        <div class="card card-plain">
+                                            <div class="card-header">
+                                                <h4 class="card-title">Equipements</h4>
+                                                <p class="category"> liste des Equipements de {{ client.firstName }} {{ client.lastName }}</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class=" text-primary">
+                                                        <tr><th>
+                                                                type
+                                                            </th>
+                                                            <th>
+                                                                Nom d'équipement
+                                                            </th>
+                                                            <th>
+                                                               Mot du passe
+                                                            </th>
+                                                            <th>
+                                                                Actions
+                                                            </th>
+
+                                                        </tr></thead>
+                                                        <tbody>
+                                                        {% set indice = 0 %}
+
+                                                        {% for equipement in client.equipements %}
+                                                            <tr>
+                                                                <td>
+                                                                    {% if constant('TYPE_RESEAU', equipement) == equipement.type %}
+                                                                        {{ constant('TYPE', equipement)[equipement.type] }}
+                                                                    {% endif %}
+                                                                    {% if constant('TYPE_PERIPH', equipement) == equipement.type%}
+                                                                        {{ constant('TYPE', equipement)[equipement.type] }}
+                                                                    {% endif %}
+                                                                    {% if constant('TYPE_WEB', equipement) == equipement.type%}
+                                                                        {{ constant('TYPE', equipement)[equipement.type] }}
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {{ equipement.name }}
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-group no-border">
+                                                                        <input type="password" value="{{ equipement.password }}" class="form-control password"
+                                                                               id="{{ indice }}">
+                                                                        <div class="input-group-append">
+                                                                            <div class="input-group-text">
+                                                                                <i class="now-ui-icons gestures_tap-01 decrypte"  data-id="{{ indice }}"
+                                                                                   data-equipement="{{ equipement.id }}"></i>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <a href="{{ path("show_equipement",{'id': equipement.id}) }}"
+                                                                       data-toggle="modal" data-target="#showequipement" class="equipementshow">
+
+                                                                        <i class="fa fa-eye" ></i>
+
+                                                                    </a>
+                                                                    <a href="{{ path("edit_equipement",{'id': equipement.id}) }}"
+                                                                       class="equipementdelete" data-toggle="modal" data-target="#editequipement">
+                                                                         <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                    {% if(equipement.deletedAt) %}
+                                                                        <a href="{{ path('equipementresore',{'id': equipement.id}) }}">
+                                                                            <i class="fa fa-box-open"></i>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        <a href="{{ path('equipementarchive',{'id': equipement.id}) }}">
+                                                                            <i class="fa fa-archive"></i>
+                                                                        </a>
+                                                                    {% endif %}
+                                                                </td>
+
+                                                            </tr>
+                                                            {% set indice=indice+1 %}
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="showequipement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Détail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editequipement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modifier</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                   {# <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>#}
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="importInfra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Importer en masse</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('assets/js/CryptoJSAES/cryptojs-aes.min.js') }}"></script>
+    <script src="{{ asset('assets/js/CryptoJSAES/cryptojs-aes-format.js') }}"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function (){
+
+            $("#showequipement").on("show.bs.modal", function(e) {
+                var link = $(e.relatedTarget);
+                var path=$(this).find(".modal-body").load(link.attr("href"));
+                console.log(path);
+            });
+            $("#editequipement").on("show.bs.modal", function(e) {
+                var link = $(e.relatedTarget);
+                var path=$(this).find(".modal-body").load(link.attr("href"));
+                console.log('eee'+path);
+            });
+            $("#add").on("show.bs.modal", function(e) {
+                var link = $(e.relatedTarget);
+                var path=$(this).find(".modal-body").load(link.attr("href"));
+                console.log('eee'+path);
+            });
+            $("#importInfra").on("show.bs.modal", function(e) {
+                var link = $(e.relatedTarget);
+                var path=$(this).find(".modal-body").load(link.attr("href"));
+                console.log('eee'+path);
+            });
+
+          //  var tabequipement= new array();
+                var tabequipementspass= new Array();
+                var tabpasswords = new Array();
+           //k,,,,,,,,,,,,,,,,,
+            function decryptage(i)
+            {
+                var tabpasswords = new Array();
+                var token= '{{ app.session.get("token") }}';
+                {% for password in passwords %} tabpasswords.push(CryptoJSAesJson.decrypt('{{ password|raw }}', token)) ;{% endfor %}
+                return tabpasswords;
+            }
+
+
+
+            $('.decrypte').click(function (){
+                var indice= $(this).data('id');
+                var tabpassword=decryptage(0);
+                var equiement=$(this).data('equipement');
+
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "{{ path('client_show_ajax') }}",
+                    data: { tabpasswords :  tabpassword[indice],
+                            equipement: equiement,
+                            },
+                     complete: function(data) {
+                         $('#'+indice).val(data.responseText);
+                         if( $('#'+indice).attr('type')=="password"){
+
+                             setTimeout($('#'+indice).prop('type','text'),1000);
+
+                         }else{
+                             $('#'+indice).prop('type','password');
+                         }
+                     }
+                });
+            })
+        })
+    </script>
+{% endblock %}

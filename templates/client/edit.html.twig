@@ -1,0 +1,228 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Modifier profil Clients{% endblock %}
+{% block nav %}
+    <div class="navbar-wrapper">
+        <div class="navbar-toggle">
+            <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
+        <a class="navbar-brand">{% if edit %}Modifier profil d'un Client{% else %} Ajouter un client{% endif %}</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+
+    <div class="col-md-8 ml-auto mr-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">
+                    {% if edit %}    Modifier profil client{% else %}Ajout d'un client{% endif %}
+
+                </h5>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label>Nom</label>
+                                {{ form_widget(form.firstName, {'attr' : { 'class' : 'form-control'}} ) }}
+
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.firstName) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label>Prénom</label>
+                                {{ form_widget(form.lastName, {'attr' : { 'class' : 'form-control'}} ) }}
+
+
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.lastName) }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Addresse</label>
+                                {{ form_widget(form.Adresse, {'attr' : { 'class' : 'form-control'}} ) }}
+
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.Adresse) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Numéro du téléphone</label>
+                                {{ form_widget(form.phone, {'attr' : { 'class' : 'form-control'}} ) }}
+
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.phone) }}
+                            </div>
+
+                        </div>
+                    </div>
+                {% if edit %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+                                <label>email</label>
+                                {{ form_widget(form.email, {'attr' : { 'class' : 'form-control'}} ) }}
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.email) }}
+                            </div>
+                        </div>
+
+                    </div>
+                {% else %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <label>email</label>
+                                {{ form_widget(form.email, {'attr' : { 'class' : 'form-control'}} ) }}
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.email) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mot de passe client</label>
+                                {{ form_widget(form.password, {'attr' : { 'class' : 'form-control'}} ) }}
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.password) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                                <label>Pays</label>
+                                {{ form_widget(form.city, {'attr' : { 'class' : 'form-control'}} ) }}
+
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.city) }}
+                            </div>
+                        </div>
+                        <div class="col-md-4 px-1">
+                            <div class="form-group">
+                                <label>Ville</label>
+                                {{ form_widget(form.country, {'attr' : { 'class' : 'form-control'}} ) }}
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.country) }}
+                            </div>
+                        </div>
+                        <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                                <label>code postal</label>
+                                {{ form_widget(form.zipcode, {'attr' : { 'class' : 'form-control'}} ) }}
+                            </div>
+                            <div class="form-error" style="color: red">
+                                {{ form_errors(form.zipcode) }}
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+
+
+                    <div class="form-check col-md-4">
+                        <label class="form-check-label ">
+                            {{ form_widget(form.contrat, {'attr' : { 'class' : 'form-check-input'}} ) }}
+                            <span class="form-check-sign">Contrat</span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                        <div class="form-group">
+                            {% if edit %}
+                            {% set path = path('company_new',{'id':client.id}) %}
+                            {% else %}
+                            {% set path =  path('add_company')  %}
+                            {% endif %}
+                            <label>Entreprise <a href="{{ path  }}" class="float-right" data-toggle="modal"
+                                                 data-target="#add" class="add"><i class="fa fa-plus-circle"></i></a></label>
+                            {{ form_widget(form.companies, {'attr' : { 'class' : 'form-control js-example-basic-single'}} ) }}
+                        </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                        <div class="form-group">
+                            <label>Entreprise interne</label>
+                            {{ form_widget(form.companyInterne, {'attr' : { 'class' : 'form-control js-example-basic-single'}} ) }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row float-right">
+                    <div class="col-md-12 ">
+                        <button type="submit" class="btn btn-fill btn-outline-success">{{ button_label|default('enregistrer') }}</button>
+                        <button type="reset" class="btn btn-fill btn-outline-danger">Annuler</button>
+                    </div>
+
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                {# <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                #}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        $("#add").on("show.bs.modal", function(e) {
+            var link = $(e.relatedTarget);
+            var path=$(this).find(".modal-body").load(link.attr("href"));
+            $('.js-example-basic-single').select2();
+
+            console.log('eee'+path);
+        });
+    });
+</script>
+
+    <script>
+
+    </script>
+{% endblock %}

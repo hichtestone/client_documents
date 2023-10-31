@@ -1,0 +1,16 @@
+
+<div class="col-md-12">
+         <label>Type d'équipement: </label>
+            <div class="form-group">
+                <input type="text" class="form-control" value="{{ equipement.type }}" disabled>
+            </div>
+
+            <label>Nom d'équipement:</label>
+            <div class="form-group">
+                <input type="text" class="form-control" value="{{ equipement.name }}" disabled>
+            </div>
+            <label>mot du passe :</label>
+            <div class="form-group">
+                <input type="text" class="form-control" value="{{ equipement.decrype(equipement.password) }}" disabled>
+            </div>
+</div>

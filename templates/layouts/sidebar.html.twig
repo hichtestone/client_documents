@@ -1,0 +1,35 @@
+<div class="sidebar" data-color="orange">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+  -->
+    <div class="logo">
+        <a href="" class="simple-text logo-normal">
+           Mot de passe
+        </a>
+    </div>
+    <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+            <li class=" {% if app.request.get('_route') == 'client' or app.request.get('_route') == 'client_show'  %} active{% else %} '' {% endif %}">
+                <a href="{{ path('client') }}">
+                    <i class="now-ui-icons design_bullet-list-67"></i>
+                    <p>Liste Client</p>
+                </a>
+            </li>
+            <li class=" {% if app.request.get('_route') == 'audit_trail' %} active{% else %} '' {% endif %}">
+                <a href="{{ path('audit_trail') }}">
+                    <i class="now-ui-icons files_box"></i>
+                    <p>Audit Trail</p>
+                </a>
+            </li>
+            {% if  is_granted('ROLE_SUPER_ADMIN') or  is_granted('ROLE_ADMIN_IDS') or is_granted('ROLE_ADMIN_ALTRA')%}
+                <li class=" {% if app.request.get('_route') == 'user_new' or app.request.get('_route') =='user_index' or app.request.get('_route') =='user_show'
+                    or app.request.get('_route') =='user_edit' %} active{% else %} '' {% endif %}">
+                    <a href="{{ path('user_index') }}">
+                        <i class="now-ui-icons users_single-02"></i>
+                        <p>Gestion des utilisateurs</p>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

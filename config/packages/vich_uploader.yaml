@@ -1,0 +1,31 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        companies_images:
+            uri_prefix: /uploads/images/companies
+            upload_destination: '%kernel.project_dir%/public/uploads/images/companies'
+            inject_on_load: true
+            delete_on_remove: true
+            delete_on_update: true
+
+        companiesInterne_images:
+            uri_prefix: /uploads/images/companiesInterne
+            upload_destination: '%kernel.project_dir%/public/uploads/images/companiesInterne'
+            inject_on_load: true
+            delete_on_remove: true
+            delete_on_update: true
+
+        document_licence:
+            uri_prefix: /uploads/documents/licences
+            upload-destination: '%kernel.project_dir%/public/uploads/documents/licences'
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+
+        document_conf:
+            uri_prefix: /uploads/documents/conf
+            upload-destination: '%kernel.project_dir%/public/uploads/documents/conf'
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true

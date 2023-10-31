@@ -1,0 +1,235 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Liste Clients{% endblock %}
+{% block stylesheet %}
+    <style type="text/css">
+        /** Twitter Typeahead **/
+        .twitter-typeahead, .typeahead, .empty-message  {
+            width: 100%;
+        }
+        .tt-menu {
+            background: white;
+            width: 100%;
+        }
+        .tt-suggestion {
+            overflow: hidden;
+            display: table;
+            width: 100%;
+            padding: 10px 10px;
+            border-bottom: 1px solid #e9ecf2;
+        }
+        /** Movie Card (Movie Suggestions) **/
+        .movie-card {
+            position: relative;
+            padding: 8px;
+        }
+        .movie-card-poster {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 52px;
+            height: 52px;
+            border: 2px solid #ccd6dd;
+            border-radius: 5px;
+        }
+        .movie-card:hover .movie-card-poster {
+            border-color: #f5f8fa;
+        }
+        .movie-card-details {
+            min-height: 60px;
+            padding-left: 60px;
+        }
+        .movie-card-name,
+        .movie-card-year {
+            display: inline-block;
+        }
+        .movie-card-name {
+            font-weight: 700;
+        }
+        .movie-card-year {
+            color: #8899a6;
+        }
+        .movie-card:hover .movie-card-year {
+            color: #fff;
+        }
+        .movie-card-plot {
+            margin-top: 5px;
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .movie-card:hover,
+        .movie-card.is-active {
+            color: #fff;
+            background: #0088CC;
+            cursor: pointer;
+        }
+        .empty-message {
+            position: relative;
+            padding: 10px;
+            font-size: 16px;
+            line-height: 30px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block nav %}
+    <div class="navbar-wrapper">
+        <div class="navbar-toggle">
+            <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
+        <a class="navbar-brand" href="#pablo">Table client</a>
+    </div>
+{% endblock %}
+{% block search %}
+  <form>
+      <div class="input-group no-border" id="prefetch">
+          <input type="text" value="" class="form-control typeahead" placeholder="Search...">
+      </div>
+  </form>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> Clients
+                        <a href="{{ path('client_new') }}" class="float-right"><i class="fa fa-plus-circle"></i></a>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                            <th>
+                                Nom
+                            </th>
+                            <th>
+                                Prénom
+                            </th>
+                            <th>
+                                Adresse
+                            </th>
+                            <th>
+                                numéro du téléphone
+                            </th>
+                            <th>
+                                email
+                            </th>
+                            <th>Contrat</th>
+                            <th>entreprise</th>
+                            <th class="text-right">
+                                Action
+                            </th>
+                            </thead>
+                            <tbody>
+                            {% for client in clients %}
+                            <tr>
+                                <td>
+                                    {{ client.firstName }}
+                                </td>
+                                <td>
+                                    {{ client.lastName }}
+                                </td>
+                                <td>
+                                    {{ client.Adresse }}
+                                </td>
+                                <th>
+                                    {{client.phone }}
+                                </th>
+                                <th>{{ client.email }}</th>
+                                <th>
+                                    {% if client.contrat %}
+                                        <i class="now-ui-icons ui-1_check text-success"></i>
+                                    {% else %}
+                                        <i class="now-ui-icons ui-1_simple-remove text-danger"></i>
+                                    {% endif %}
+                                </th>
+                                <th>{{ client.companies? client.companies.name  : "vide" }}</th>
+                                <td class="text-right">
+                                    <span>
+                                        <a href="{{ path('client_show',{'id':client.id}) }}"><i class="fa fa-eye"></i></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <script>
+        $(document).ready(function (){
+            var clients = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+
+                remote:{
+                    url:"{{ path('typeAhead') }}/%QUERY%",
+                    wildcard: "%QUERY%",
+                    filter: function (clients)
+                    {
+                        return $.map(clients,function (client){
+                            return {
+                                client_id: client.id,
+                                client_firstname: client.firstName,
+                                client_lastname: client.lastName,
+                                client_url:client.id+'/showclient'
+
+
+                            }
+                        })
+                    }
+                },
+
+                // url points to a json file that contains an array of country names, see
+                // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+                prefetch: '{{ path('typeAhead') }}'
+            });
+                clients.initialize();
+            // passing in `null` for the `options` arguments will result in the default
+            // options being used
+            $.fn.typeahead.defaults = {items: 'all'};
+            $('#prefetch .typeahead').typeahead(
+                {
+                    hint: true,
+                },
+
+                {
+                name: 'clients',
+                source: clients.ttAdapter(),
+                    display: 'client_name',
+                    templates: {
+                        suggestion: function (data)
+                        {
+                            console.log(data);
+
+                            return `
+                                <a class="dropdown-item" href=`+data.client_url+`>
+                                    <strong>`+data.client_lastname+`</strong>
+                                    <span>`+data.client_firstname+`</span>
+                                </div>
+                            `
+                        },
+                        footer: function (query)
+                        {
+                        }
+                    }
+
+            });
+            $('.tt-menu').addClass('dropdown-menu dropdown-menu-right');
+        });
+    </script>
+
+{% endblock %}

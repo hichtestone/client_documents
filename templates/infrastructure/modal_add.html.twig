@@ -1,0 +1,129 @@
+<div class="col-md-12">
+    <div class="card ">
+        {{ form_start(form, {'action': path('infrastructure_new',{'id': client.id})}) }}
+        <div class="card-header ">
+            <h4 class="card-title">Ajouter Infrastructure</h4>
+        </div>
+        <div class="card-body ">
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+
+                        {{ form_row(form.site, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.nomSvr, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_row(form.OS, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.CPU_PROC, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.RAM, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.totalDisque, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.DisqueUsed, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.IP, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-check">
+                        {{ form_row(form.HYPERV, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.nominal, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <div class="row">
+                    <label class="col-md-3"></label>
+
+                    <div class="col-md-9">
+                        <button id="valide" style="float: right; margin-bottom: 1%" class="btn  btn-outline-success">
+                            {{ button_label|default('Enregistrer') }}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

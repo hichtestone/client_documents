@@ -1,0 +1,33 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}companies Interne liste{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">Liste des entreprises</h5>
+
+                </div>
+                <div class="card-body all-icons">
+                    <div class="row">
+                        {% for company in compnaies %}
+                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+
+                            <div class="font-icon-detail float-right"  style="padding: 0px 0px 30px;">
+                                <div class="icon icon-primary icon-circle">
+                                    <a href="{{ path('company_interne_edit',{'id':company.id}) }}" class="float-right"><i class="fa fa-pen"></i></a>
+                                </div>
+                                <a href="{{ path('clients_with_company',{'id': company.id})}}">
+                                <img src="{{ asset('uploads/images/companiesInterne/' ~company.logo) }}">
+                                <p>{{ company.name }}</p></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

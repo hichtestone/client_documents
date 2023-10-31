@@ -1,0 +1,82 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Gestion utilisateurs{% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-header" style="margin-top: 2em;">
+                    <h4 class="card-title"> Liste des Utilisateurs
+                        <a href="{{ path('user_new') }}" class="float-right"><i class="fa fa-plus-circle"></i></a>
+                    </h4>
+                    <select class="form-control js-example-basic-single" name="state" id="choic">
+                        <option value="0"> choisir un utilisateur</option>
+                        {% for user  in users %}
+                            <option value="{{ user.id }}" >{{ user.userName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+
+                                <th>Nom</th>
+
+                                <th>Email</th>
+
+
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+
+                                    <td>{{ user.userName }}</td>
+
+                                    <td>{{ user.email }}</td>
+
+
+                                    <td>
+                                        <a href="{{ path('user_show', {'id': user.id}) }}"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ path('user_edit', {'id': user.id}) }}"><i class="fa fa-edit"></i></a>
+                                        {% if user != app.user %}
+                                            {% if user.deletedAt == null %}
+                                                 <a href="{{ path('user_archive', {'id': user.id}) }}"><i class="fa fa-archive"></i></a>
+                                            {% else %}
+                                                <a href="{{ path('user_desarchive', {'id': user.id}) }}"><i class="fa fa-box-open"></i></a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+
+    </table>
+
+{% endblock %}
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+{% endblock %}

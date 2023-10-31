@@ -1,0 +1,175 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Audit Trail{% endblock %}
+{% block stylesheet %}
+    <style>
+        a>active{
+
+            border-radius: 20px!important;
+            background-color:#fd7e14!important;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+
+        <div class="card ">
+
+            <div class="card-header ">
+                <h4 class="card-title">Audit Trail - <small id="description" class="description">Documents</small></h4>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="nav nav-pills nav-pills-primary flex-column" role="tablist">
+                            <li class="nav-item" data-id="Documents">
+                                <a class="nav-link active" data-toggle="tab" href="#link4" role="tablist">
+                                    Documents
+                                </a>
+                            </li>
+                            <li class="nav-item" data-id="Équipements">
+                                <a class="nav-link" data-toggle="tab" href="#link5" role="tablist">
+                                    Équipements
+                                </a>
+                            </li>
+                            <li class="nav-item" data-id="Infrastructures">
+                                <a class="nav-link" data-toggle="tab" href="#link6" role="tablist">
+                                    Infrastructures
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="link4">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <th>
+                                                Modifié le
+                                            </th>
+                                            <th>
+                                                Modifié par
+                                            </th>
+                                            <th>
+                                                Client
+                                            </th>
+                                            <th>
+                                                Type
+                                            </th>
+                                            <th>
+                                                Détails
+                                            </th>
+                                         
+                                            </thead>
+                                            <tbody>
+                                            {% for doc in documentsAuditTrail %}
+                                                <tr>
+                                                    <td>{{ doc.date|date }}</td>
+                                                    <td>{{ doc.user? doc.user.userName : "" }}</td>
+                                                    <td>{{ doc.entity.client.firstName }}</td>
+                                                    <td>{{ doc.modifType==1? "Création" : "Modification" }}</td>
+                                                    <td>{{ doc.details|json_encode() }}</td>
+
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="link5">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <th>
+                                                Modifié le
+                                            </th>
+                                            <th>
+                                                Modifié par
+                                            </th>
+                                            <th>
+                                                Client
+                                            </th>
+                                            <th>
+                                                Type
+                                            </th>
+                                            <th>
+                                                Détails
+                                            </th>
+                                            </thead>
+                                            <tbody>
+                                            {% for equipement in equipementsAuditTrail %}
+                                                <tr>
+                                                    <td>{{ equipement.date|date }}</td>
+                                                    <td>{{ equipement.user? equipement.user.userName : "" }}</td>
+                                                    <td>{{ equipement.entity.client.firstName }}</td>
+                                                    <td>{{ equipement.modifType==1? "Création" : "Modification" }}</td>
+                                                    <td>{{ equipement.details|json_encode() }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="link6">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <th>
+                                                Modifié le
+                                            </th>
+                                            <th>
+                                                Modifié par
+                                            </th>
+                                            <th>
+                                                Client
+                                            </th>
+                                            <th>
+                                                Type
+                                            </th>
+                                            <th>
+                                                Détails
+                                            </th>
+                                            </thead>
+                                            <tbody>
+                                            {% for infrastructure in infrastructuresAuditTrail %}
+                                                <tr>
+                                                    <td>{{ infrastructure.date|date }}</td>
+                                                    <td>{{ infrastructure.user? infrastructure.user.userName : "" }}</td>
+                                                    <td>{{ infrastructure.entity.client.firstName }}</td>
+                                                    <td>{{ infrastructure.modifType==1? "Création" : "Modification" }}</td>
+                                                    <td>{{ infrastructure.details|json_encode() }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $('.nav-item').click(function (){
+            var data= $(this).data("id");
+            $('#description').text(data);
+
+        })
+    </script>
+{% endblock %}

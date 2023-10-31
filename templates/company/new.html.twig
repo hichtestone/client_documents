@@ -1,0 +1,111 @@
+
+<div class="col-md-12">
+    <div class="card ">
+        {% if edit %}
+            {% set path = path('company_new',{'id':client.id}) %}
+        {% else %}
+            {% set path =  path('add_company')  %}
+        {% endif %}
+
+        {{ form_start(form, {'action': path}) }}
+        <div class="card-header ">
+            <h4 class="card-title">Ajouter Entreprise</h4>
+        </div>
+        <div class="card-body ">
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+
+                        {{ form_row(form.name, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+
+                        {{ form_row(form.email, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.phone, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.adresse, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.zipcode, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.country, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.city, {'attr' : {'class' : 'form-control'}} ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+
+                        <div class="form-group form-file-upload form-file-simple">
+                            <input type="text" class="form-control inputFileVisible" placeholder="choisir logo" >
+                            {{ form_widget(form.imageFile, {'attr' : { 'class' : 'inputFileHidden'}} ) }}
+                            <span class="alert-danger" id="alertimage"></span>
+                        </div>
+
+
+                </div>
+            </div>
+
+            <div class="card-footer ">
+                <div class="row">
+                    <label class="col-md-3"></label>
+
+                    <div class="col-md-9">
+                        <button id="valide" style="float: right; margin-bottom: 1%" class="btn  btn-outline-success">
+                            {{ button_label|default('Enregistrer') }}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+</div>
+<script>
+    function _0x363c(_0x31b829,_0x2c957b){var _0x3fa4dd=_0x3fa4();return _0x363c=function(_0x363cae,_0x37453c){_0x363cae=_0x363cae-0x11d;var _0x4309c0=_0x3fa4dd[_0x363cae];return _0x4309c0;},_0x363c(_0x31b829,_0x2c957b);}var _0x54091f=_0x363c;function _0x3fa4(){var _0x12a81a=['#alertimage','attr','110118QRFvgN','disabled','INPUT[type=\x22file\x22]','3ywZOkg','BUTTON[type=\x22submit\x22]','2363665ksSSIg','jpeg','text','4899240lGvZDW','match','68422JSrQzT','png','ready','jpg','201QmsVge','1111PLvOuY','427qYODFZ','Attention,il\x20faut\x20choisir\x20un\x20type\x20valide\x20pour\x20l\x27image\x20','207580XRiung','87748PeaWwA','value','11303172oTAaRv'];_0x3fa4=function(){return _0x12a81a;};return _0x3fa4();}(function(_0x4eb162,_0x26c3a5){var _0x402a4d=_0x363c,_0x307839=_0x4eb162();while(!![]){try{var _0x5606a2=parseInt(_0x402a4d(0x132))/0x1*(parseInt(_0x402a4d(0x121))/0x2)+parseInt(_0x402a4d(0x125))/0x3*(parseInt(_0x402a4d(0x12a))/0x4)+-parseInt(_0x402a4d(0x134))/0x5+-parseInt(_0x402a4d(0x12f))/0x6*(-parseInt(_0x402a4d(0x127))/0x7)+-parseInt(_0x402a4d(0x11f))/0x8+parseInt(_0x402a4d(0x12c))/0x9+parseInt(_0x402a4d(0x129))/0xa*(-parseInt(_0x402a4d(0x126))/0xb);if(_0x5606a2===_0x26c3a5)break;else _0x307839['push'](_0x307839['shift']());}catch(_0x34dfb2){_0x307839['push'](_0x307839['shift']());}}}(_0x3fa4,0xbb0cd),$(document)[_0x54091f(0x123)](function(){var _0x3cddaf=_0x54091f;$(_0x3cddaf(0x131))['change'](function(){var _0x4ce9b0=_0x3cddaf,_0x4fe9ee=this[_0x4ce9b0(0x12b)][_0x4ce9b0(0x120)](/\.(.+)$/)[0x1];switch(_0x4fe9ee){case _0x4ce9b0(0x124):case _0x4ce9b0(0x11d):case _0x4ce9b0(0x122):case'gif':$(_0x4ce9b0(0x133))[_0x4ce9b0(0x12e)](_0x4ce9b0(0x130),![]);break;default:$(_0x4ce9b0(0x12d))[_0x4ce9b0(0x11e)](_0x4ce9b0(0x128)),$(_0x4ce9b0(0x133))[_0x4ce9b0(0x12e)](_0x4ce9b0(0x130),!![]),this[_0x4ce9b0(0x12b)]='';}});}));
+</script>

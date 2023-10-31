@@ -1,0 +1,40 @@
+
+    <div class="card-body">
+        {{ form_start(form, {'action': path('edit_equipement',{'id': equipement.id})}) }}
+        <div class="row">
+            <div class="col-12 form-group">
+                <p>Type d'équipement</p>
+                {{ form_widget(form.TYPE, {'attr' : {'class' : 'form-control'}} ) }}
+                <div class="form-error" style="color: red">
+                    {{ form_errors(form.TYPE) }}
+                </div>
+            </div>
+            <div class="col-12 form-group">
+                <p>Nom d'équipement</p>
+                {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}} ) }}
+                <div class="form-error" style="color: red">
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+            <div class="col-12 form-group">
+                <p>mot du passe </p>
+                {{ form_widget(form.password, {'attr' : {'class' : 'form-control'}} ) }}
+                <div class="form-error" style="color: red">
+                    {{ form_errors(form.password) }}
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12 form-group">
+                <div class="submit-section text-center btn-add">
+                    <button type="submit" class="btn btn-theme button-1 text-white ctm-border-radius">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+
+
+

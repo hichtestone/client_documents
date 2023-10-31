@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Infrastructure index{% endblock %}
+
+{% block body %}
+    <h1>Infrastructure index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Site</th>
+                <th>NomSvr</th>
+                <th>OS</th>
+                <th>CPU_PROC</th>
+                <th>RAM</th>
+                <th>TotalDisque</th>
+                <th>DisqueUsed</th>
+                <th>IP</th>
+                <th>HYPERV</th>
+                <th>VM</th>
+                <th>Nominal</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for infrastructure in infrastructures %}
+            <tr>
+                <td>{{ infrastructure.id }}</td>
+                <td>{{ infrastructure.site }}</td>
+                <td>{{ infrastructure.nomSvr }}</td>
+                <td>{{ infrastructure.OS }}</td>
+                <td>{{ infrastructure.CPUPROC }}</td>
+                <td>{{ infrastructure.RAM }}</td>
+                <td>{{ infrastructure.totalDisque }}</td>
+                <td>{{ infrastructure.DisqueUsed }}</td>
+                <td>{{ infrastructure.IP }}</td>
+                <td>{{ infrastructure.HYPERV ? 'Yes' : 'No' }}</td>
+                <td>{{ infrastructure.VM ? 'Yes' : 'No' }}</td>
+                <td>{{ infrastructure.nominal }}</td>
+                <td>
+                    <a href="{{ path('infrastructure_show', {'id': infrastructure.id}) }}">show</a>
+                    <a href="{{ path('infrastructure_edit', {'id': infrastructure.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('infrastructure_new') }}">Create new</a>
+{% endblock %}
